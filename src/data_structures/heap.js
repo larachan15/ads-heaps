@@ -3,15 +3,15 @@ class MaxHeap {
 
   /**
    * Create a new empty max heap of a given size, optionally from an existing array
-   * 
+   *
    * @param {number} [size=1023] Maximum capacity of the queue
    * @param {{priority: number, element: *}[]} [fromArray] Build the heap from this array instead. The given array must be 1-indexed, and records must have the given form.
    */
   constructor({ size = this.constructor.DEFAULT_SIZE, fromArray } = {}) {
     if (fromArray) {
       this._storage = fromArray;
-      this._size = fromArray.length - 1;
-      this._count = this._size;
+      this.size = fromArray.length - 1;
+      this._count = this.size;
       this._buildheap();
 
     } else {
@@ -32,7 +32,7 @@ class MaxHeap {
 
   /**
    * Use a heap to sort an array in-place in n*log(n) time
-   * 
+   *
    * @param {{priority: number, element: *}[]} [array] Data to sort. The given array must be 1-indexed, and records must have the given form.
    */
   static heapsort(array) {
@@ -75,7 +75,7 @@ class MaxHeap {
 
   /**
    * Add a record to the queue with a given priority
-   * 
+   *
    * @param {number} priority Priority of the record
    * @param {*} element Data to store in this record
    * @throws If the heap is full
@@ -86,16 +86,16 @@ class MaxHeap {
 
   /**
    * Remove and return the record with the highest priority
-   * 
+   *
    * @returns {*} The data stored in the highest-priority record, or undefined if the queue is empty
    */
   removeMax() {
     // TODO
   }
 
-  /** 
+  /**
    * How many records are in the priority queue?
-   * 
+   *
    * @returns {number} Record count
    */
   count() {
@@ -104,10 +104,10 @@ class MaxHeap {
 
   /**
    * Turn this max heap into a sorted array
-   * 
+   *
    * Destroys the max heap in the process - insert, removeMax, etc will NOT
    * work after this function has been run
-   * 
+   *
    * @returns Sorted storage array. Note that the array is 1-indexed (so the first element is null)
    */
   sort() {

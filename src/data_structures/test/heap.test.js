@@ -111,7 +111,7 @@ describe(MaxHeap, () => {
     });
   });
 
-  describe('removeMax', () => {
+  describe.skip('removeMax', () => {
     it('removes the only record, returns its element, and reduces the count', () => {
       heap.insert(3, 'test');
 
@@ -200,7 +200,7 @@ describe(MaxHeap, () => {
     return [null].concat(data.map(pri => ({ priority: pri, element: pri })));
   }
 
-  describe("buildheap", () => {
+  describe.skip("buildheap", () => {
     const buildAndVerify = (data) => {
       const heapInput = buildInputArray(data);
       const heap = new MaxHeap({ fromArray: heapInput });
@@ -232,7 +232,7 @@ describe(MaxHeap, () => {
     });
   });
 
-  describe(MaxHeap.heapsort, () => {
+  describe.skip(MaxHeap.heapsort, () => {
     const sortAndVerify = (data) => {
       const heapInput = buildInputArray(data);
       MaxHeap.heapsort(heapInput);
