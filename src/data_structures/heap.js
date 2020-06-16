@@ -52,6 +52,10 @@ class MaxHeap {
     return Math.floor(i / 2);
   }
 
+  _priority(i) {
+    return this._storage[i].priority;
+  }
+
   _swap(i, j) {
     // Note: in a language like C, Java or Rust, where the array is full of records
     // instead of references to records, we would need to swap the priority and
@@ -62,15 +66,46 @@ class MaxHeap {
   }
 
   _float(i) {
-    // TODO
+    let parent = this._parent(i);
+
+    while (parent > 0 && this._priority(i) > this._priority(parent)) {
+        this._swap(i, parent);
+        i = parent;
+        parent = this._parent(i);
+      }
   }
 
   _sink(i) {
-    // TODO
+    let foundMax = false;
+
+    while (!foundMax){
+      const leftChild = this._left(i);
+      const rightChild = this._right(i);
+
+      let highestPriority = i;
+
+      if (leftChild <= this._count && this._priority(leftChild) > this._priority(i)){
+        highestPriority = leftChild;
+      }
+
+      if (rightChild <= this._count && this._priority(rightChild) > this._priority(highestPriority)){
+        highestPriority = rightChild;
+      }
+
+      if (highestPriority === i){
+        foundMax = true;
+      } else {
+        this._swap(i, highestPriority);
+        i = highestPriority;
+      }
+    }
   }
 
   _buildheap() {
-    // TODO
+    const midpoint = Math.floor(this._size / 2);
+    for (let i = midpoint; i > 0; i -= 1) {
+      this._sink(i);
+    }
   }
 
   /**
@@ -81,7 +116,17 @@ class MaxHeap {
    * @throws If the heap is full
    */
   insert(priority, element) {
-    // TODO
+    if (this._count < this.size) {
+      this._count += 1;
+    } else {
+      throw new Error('Hey, I am full!!');
+    }
+
+    const record = this._storage[this._count];
+    record.priority = priority;
+    record.element = element;
+
+    this._float(this._count);
   }
 
   /**
@@ -90,7 +135,18 @@ class MaxHeap {
    * @returns {*} The data stored in the highest-priority record, or undefined if the queue is empty
    */
   removeMax() {
-    // TODO
+    if (this._count === 0) {
+      return undefined;
+    }
+
+    const toRemove = this._storage[1].element;
+     this._storage[1].element = undefined;
+
+     this._swap(1, this._count);
+     this._count -= 1;
+     this._sink(1);
+
+     return toRemove;
   }
 
   /**
@@ -111,7 +167,12 @@ class MaxHeap {
    * @returns Sorted storage array. Note that the array is 1-indexed (so the first element is null)
    */
   sort() {
-    // TODO
+    while (this._count > 0) {
+      this._swap(1, this._count);
+      this._count -= 1;
+      this._sink(1);
+    }
+    return this._storage;
   }
 }
 
